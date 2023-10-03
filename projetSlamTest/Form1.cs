@@ -15,11 +15,21 @@ namespace projetSlamTest
         public Form1()
         {
             InitializeComponent();
+            //test2
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // chargement du formulaire
+
+            // salut
         }
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hello");
+
+        }
+        
+        // créé une fonction qui print 
     }
 }
