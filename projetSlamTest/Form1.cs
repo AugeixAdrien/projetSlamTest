@@ -15,6 +15,7 @@ namespace projetSlamTest
         public Form1()
         {
             InitializeComponent();
+<<<<<<< Updated upstream
             //test2
         }
 
@@ -27,6 +28,10 @@ namespace projetSlamTest
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Hello");
+=======
+>>>>>>> Stashed changes
         }
+        
+        // créé une fonction qui print 
     }
 }
