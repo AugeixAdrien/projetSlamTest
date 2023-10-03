@@ -15,7 +15,6 @@ namespace projetSlamTest
         public Form1()
         {
             InitializeComponent();
-            // test
         }
     }
 }
