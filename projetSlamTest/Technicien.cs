@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Technicien
+    public class Technicien
     {
 
 
