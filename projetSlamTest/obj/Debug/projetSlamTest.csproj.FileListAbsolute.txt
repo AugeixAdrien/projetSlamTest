@@ -1,0 +1,10 @@
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\projetSlamTest.exe.config
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\projetSlamTest.exe
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\projetSlamTest.pdb
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.csproj.AssemblyReference.cache
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.Form1.resources
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.Properties.Resources.resources
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.csproj.GenerateResource.cache
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.csproj.CoreCompileInputs.cache
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.exe
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.pdb
