@@ -39,3 +39,6 @@ C:\Users\adrie\Documents\projetSlamTest-ca-marchait\projetSlamTest\obj\Debug\pro
 C:\Users\adrie\Documents\projetSlamTest-ca-marchait\projetSlamTest\obj\Debug\projetSlamTest.csproj.CopyComplete
 C:\Users\adrie\Documents\projetSlamTest-ca-marchait\projetSlamTest\obj\Debug\projetSlamTest.exe
 C:\Users\adrie\Documents\projetSlamTest-ca-marchait\projetSlamTest\obj\Debug\projetSlamTest.pdb
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\Google.Protobuf.dll
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\MySql.Data.xml
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.csproj.CopyComplete
