@@ -1,8 +1,13 @@
-﻿namespace projetSlamTest
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace projetSlamTest
 {
     public class Personnel
     {
-<<<<<<< Updated upstream
 
         public Personnel(string matricule, DateTime dateEmbauche, string motDePasse, int type, int materielId)
         {
@@ -19,8 +24,5 @@
         public int Type { get; set; }
         public int MaterielId {get; set;} 
 
-=======
-        
->>>>>>> Stashed changes
     }
 }

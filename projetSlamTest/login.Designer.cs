@@ -2,7 +2,7 @@
 
 namespace projetSlamTest
 {
-    partial class Login
+    partial class login
     {
         /// <summary>
         /// Required designer variable.
@@ -32,75 +32,74 @@ namespace projetSlamTest
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.idTB = new System.Windows.Forms.TextBox();
-            this.pwTB = new System.Windows.Forms.TextBox();
+            this.idTextbox = new System.Windows.Forms.TextBox();
+            this.passwordTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.loginButton = new System.Windows.Forms.Button();
+            this.authButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 23);
+            this.label1.Size = new System.Drawing.Size(127, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "identifiant";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // idTB
+            // idTextbox
             // 
-            this.idTB.Location = new System.Drawing.Point(12, 35);
-            this.idTB.Name = "idTB";
-            this.idTB.Size = new System.Drawing.Size(163, 20);
-            this.idTB.TabIndex = 1;
+            this.idTextbox.Location = new System.Drawing.Point(12, 35);
+            this.idTextbox.Name = "idTextbox";
+            this.idTextbox.Size = new System.Drawing.Size(127, 20);
+            this.idTextbox.TabIndex = 1;
             // 
-            // pwTB
+            // passwordTextbox
             // 
-            this.pwTB.Location = new System.Drawing.Point(12, 84);
-            this.pwTB.Name = "pwTB";
-            this.pwTB.PasswordChar = '*';
-            this.pwTB.Size = new System.Drawing.Size(163, 20);
-            this.pwTB.TabIndex = 3;
+            this.passwordTextbox.Location = new System.Drawing.Point(12, 84);
+            this.passwordTextbox.Name = "passwordTextbox";
+            this.passwordTextbox.PasswordChar = '*';
+            this.passwordTextbox.Size = new System.Drawing.Size(127, 20);
+            this.passwordTextbox.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.Location = new System.Drawing.Point(12, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(163, 23);
-            this.label2.TabIndex = 2;
+            this.label2.Size = new System.Drawing.Size(127, 23);
+            this.label2.TabIndex = 3;
             this.label2.Text = "mot de passe";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // loginButton
+            // authButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(12, 124);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(163, 45);
-            this.loginButton.TabIndex = 4;
-            this.loginButton.Text = "se connecter";
-            this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            this.authButton.Location = new System.Drawing.Point(12, 125);
+            this.authButton.Name = "authButton";
+            this.authButton.Size = new System.Drawing.Size(127, 31);
+            this.authButton.TabIndex = 4;
+            this.authButton.Text = "se connecter";
+            this.authButton.UseVisualStyleBackColor = true;
             // 
-            // Login
+            // login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(191, 187);
-            this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.pwTB);
+            this.ClientSize = new System.Drawing.Size(153, 168);
+            this.Controls.Add(this.authButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.idTB);
+            this.Controls.Add(this.passwordTextbox);
+            this.Controls.Add(this.idTextbox);
             this.Controls.Add(this.label1);
-            this.Name = "Login";
-            this.Text = "Login";
+            this.Name = "login";
+            this.Text = "conn";
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button authButton;
 
-        private System.Windows.Forms.TextBox idTB;
-        private System.Windows.Forms.TextBox pwTB;
+        private System.Windows.Forms.TextBox idTextbox;
+        private System.Windows.Forms.TextBox passwordTextbox;
         private System.Windows.Forms.Label label2;
 
         private System.Windows.Forms.Label label1;
