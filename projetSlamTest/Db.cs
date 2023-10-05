@@ -35,6 +35,12 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+        
+        // fais une fonction d'authentification qui prend en paramètre un id et un mdp
+        // les id et mdp sont stockés dans la bdd dans la table personnels
+        // si l'id et le mdp correspondent, la fonction retourne true
+        // l'id correspond à la colonne matricule
+        // le mdp correspond à la colonne motDePasse
 
     }
 }
