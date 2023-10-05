@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Visiteur
-    {
-    }
-}
-﻿namespace projetSlamTest
-{
     public class Visiteur
     {
         // adrien

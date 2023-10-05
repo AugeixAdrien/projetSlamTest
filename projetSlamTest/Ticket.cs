@@ -6,27 +6,8 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Ticket
-    {
-    }
-}
-﻿namespace projetSlamTest
-
-namespace projetSlamTest
-{
     public class Ticket
     {
-        // un ticket a :
-        // un id : int
-        // un objet : string
-        // un niveau d'urgence : int
-        // une date de creation : DateTime
-        // un etat : string
-        // un idTechnicien : int
-        // un idMateriel : int
-        
-        // fais le contructeur de la classe
-        
         public Ticket (int id, string objet, int niveauUrgence, DateTime dateCreation, string etat, int idTechnicien, int idMateriel)
         {
             Id = id;

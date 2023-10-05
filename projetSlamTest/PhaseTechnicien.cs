@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class PhaseTechnicien
+    public class PhaseTechnicien
     {
 
         public PhaseTechnicien(string id, DateTime dateDebut, DateTime dateFin, string travailRealise)
@@ -26,10 +26,4 @@ namespace projetSlamTest
         public string TravailRealise { get; set; }
     }
 }
-﻿namespace projetSlamTest
-{
-    public class PhaseTechnicien
-    {
-        
-    }
-}
+

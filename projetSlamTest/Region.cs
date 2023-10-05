@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Region
+    public class Region
     {
 
         public Region(int id, string nom)
@@ -18,12 +18,5 @@ namespace projetSlamTest
         public int Id { get; private set; }
         public string Nom { get; private set; }
 
-    }
-}
-﻿namespace projetSlamTest
-{
-    public class Region
-    {
-        
     }
 }
