@@ -8,3 +8,4 @@ C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSl
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.csproj.CoreCompileInputs.cache
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.exe
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.pdb
+C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.login.resources
