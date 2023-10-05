@@ -12,6 +12,7 @@ C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSl
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\Google.Protobuf.dll
 C:\Users\adrie\Documents\GitHub\projetSlamTest\projetSlamTest\bin\Debug\K4os.Compression.LZ4.dll
@@ -64,6 +65,8 @@ C:\Users\SFLOURENCE\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\pro
 C:\Users\SFLOURENCE\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.exe
 C:\Users\SFLOURENCE\Documents\GitHub\projetSlamTest\projetSlamTest\obj\Debug\projetSlamTest.pdb
 >>>>>>> abff6c4b95fb66078ae9262fff325ab4078a0ce4
+=======
+>>>>>>> parent of abff6c4 (Db)
 =======
 >>>>>>> parent of abff6c4 (Db)
 =======
