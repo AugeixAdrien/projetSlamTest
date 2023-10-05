@@ -26,3 +26,10 @@ namespace projetSlamTest
         public string TravailRealise { get; set; }
     }
 }
+﻿namespace projetSlamTest
+{
+    public class PhaseTechnicien
+    {
+        
+    }
+}

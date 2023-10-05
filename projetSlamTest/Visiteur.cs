@@ -10,3 +10,10 @@ namespace projetSlamTest
     {
     }
 }
+﻿namespace projetSlamTest
+{
+    public class Visiteur
+    {
+        // adrien
+    }
+}

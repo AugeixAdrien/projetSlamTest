@@ -20,3 +20,10 @@ namespace projetSlamTest
 
     }
 }
+﻿namespace projetSlamTest
+{
+    public class Region
+    {
+        
+    }
+}
