@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using projetSlamTest;
 
 namespace projetSlamTest
 {
@@ -28,7 +29,5 @@ namespace projetSlamTest
             //test
 
         }
-        
-        // créé une fonction qui print 
     }
 }
