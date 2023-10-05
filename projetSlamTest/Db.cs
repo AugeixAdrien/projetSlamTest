@@ -36,11 +36,18 @@ namespace projetSlamTest
             connection.Close();
         }
         
-        // fais une fonction d'authentification qui prend en paramètre un id et un mdp
-        // les id et mdp sont stockés dans la bdd dans la table personnels
-        // si l'id et le mdp correspondent, la fonction retourne true
-        // l'id correspond à la colonne matricule
-        // le mdp correspond à la colonne motDePasse
+        public static bool Authentification(string id, string mdp)
+        {
+            connection.Open();
+            var cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM personnels WHERE matricule = @matricule AND motDePasse = @motDePasse";
+            cmd.Parameters.AddWithValue("@matricule", id);
+            cmd.Parameters.AddWithValue("@motDePasse", mdp);
+            var reader = cmd.ExecuteReader();
+            var result = reader.HasRows;
+            connection.Close();
+            return result;
+        }
 
     }
 }

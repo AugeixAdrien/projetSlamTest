@@ -20,7 +20,20 @@ namespace projetSlamTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //test
+            // ouvre la fenetre login.cs et attend la fermeture de celle-ci
+            // si le login est bon on active cette fenetre
+            // sinon on ferme le programme
+            Login login = new Login();
+            login.ShowDialog();
+            if (login.DialogResult == DialogResult.OK)
+            {
+                this.Show();
+            }
+            else
+            {
+                Application.Exit();
+            }
+            
         }
         
         private void button1_Click(object sender, EventArgs e)
