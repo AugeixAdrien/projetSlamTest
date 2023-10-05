@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Technicien
+    public class Technicien
     {
 
 
@@ -29,12 +29,5 @@ namespace projetSlamTest
 
         public string Matricule { get; set; }
 
-    }
-}
-﻿namespace projetSlamTest
-{
-    public class Technicien
-    {
-        
     }
 }

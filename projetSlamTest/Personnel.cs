@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
-    internal class Personnel
+    public class Personnel
     {
 
         public Personnel(string matricule, DateTime dateEmbauche, string motDePasse, int type, int materielId)
