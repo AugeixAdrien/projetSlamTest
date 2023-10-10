@@ -197,13 +197,14 @@ namespace projetSlamTest
             var cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO tickets (objet, niveauUrgence, dateCreation, etatDemande, " +
                               "technicienId, materielId) VALUES (@objet, @niveauUrgence, @dateCreation," +
-                              " @etatDemande, @technicienId, @materielId)";
+                              " @etatDemande, @technicienId, @materielId, @personnelId)";
             cmd.Parameters.AddWithValue("@objet", ticket.Objet);
             cmd.Parameters.AddWithValue("@niveauUrgence", ticket.NiveauUrgence);
             cmd.Parameters.AddWithValue("@dateCreation", ticket.DateCreation);
             cmd.Parameters.AddWithValue("@etatDemande", ticket.Etat);
             cmd.Parameters.AddWithValue("@technicienId", ticket.IdTechnicien);
             cmd.Parameters.AddWithValue("@materielId", ticket.IdMateriel);
+            cmd.Parameters.AddWithValue("@personnelId", ticket.Matricule);
             cmd.ExecuteNonQuery();
             connection.Close();
         }
@@ -219,7 +220,7 @@ namespace projetSlamTest
             reader.Read();
             var ticket = new Ticket(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), 
                 reader.GetDateTime(3), reader.GetString(4), reader.GetInt32(5), 
-                reader.GetInt32(6));
+                reader.GetInt32(6), reader.GetString(7));
             connection.Close();
             return ticket;
         }
@@ -263,9 +264,6 @@ namespace projetSlamTest
             connection.Close();
         }
         
-        // getStatsUtilisateur
-        // retourne le nombre d'incidents déclarés par un utilisateur
-        
         public static int GetStatsUtilisateur(Personnel personnel)
         {
             connection.Open();
@@ -278,9 +276,6 @@ namespace projetSlamTest
             connection.Close();
             return nbIncidents;
         }
-        
-        // get user
-        // retourne un utilisateur en fonction de son matricule
         
         public static Personnel GetUser(string matricule)
         {

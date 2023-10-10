@@ -8,7 +8,8 @@ namespace projetSlamTest
 {
     public class Ticket
     {
-        public Ticket (int id, string objet, int niveauUrgence, DateTime dateCreation, string etat, int idTechnicien, int idMateriel, string personnelMatricule)
+        public Ticket (int id, string objet, int niveauUrgence, DateTime dateCreation, string etat, int idTechnicien, 
+            int idMateriel, string personnelMatricule)
         {
             Id = id;
             Objet = objet;
@@ -17,10 +18,12 @@ namespace projetSlamTest
             Etat = etat;
             IdTechnicien = idTechnicien;
             IdMateriel = idMateriel;
-            personnelMatricule = personnelMatricule;
+            Matricule = personnelMatricule;
         }
 
         public int IdMateriel { get; set; }
+        
+        public string Matricule { get; set; }
 
         public int IdTechnicien { get; set; }
 
