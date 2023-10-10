@@ -32,6 +32,16 @@ namespace projetSlamTest
         public static List<Ticket> GetAllTickets()
         {
             List<Ticket> ticketList = new List<Ticket>();
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM tickets";
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Ticket ticket = new Ticket((int)reader["id"], (string)reader["objet"], (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], (string)reader["etatDemande"], (int)reader["technicienId"], (int)reader["materielId"], (string)reader["personnelMatricule"]);
+                ticketList.Add(ticket);
+            }
+            connection.Close();
             return ticketList;
         }
 

@@ -14,7 +14,10 @@ namespace projetSlamTest
     {
         
         public static Personnel utilisateur;
-        
+
+        private List<Ticket> userTickets;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -33,7 +36,9 @@ namespace projetSlamTest
                 this.Show();
                 if(utilisateur.Type == 0)
                 {
-
+                    
+                    userTickets = Db.GetTicketsByUser(utilisateur);
+                    
                 }
                 else if (utilisateur.Type == 1)
                 {
