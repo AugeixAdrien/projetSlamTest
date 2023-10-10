@@ -36,7 +36,7 @@ namespace projetSlamTest
                 this.Show();
                 if(utilisateur.Type == 0)
                 {
-                    
+                    userTickets = new List<Ticket>();
                     userTickets = Db.GetTicketsByUser(utilisateur);
                     
                 }
