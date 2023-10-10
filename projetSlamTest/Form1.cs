@@ -16,6 +16,8 @@ namespace projetSlamTest
         public static Personnel utilisateur;
 
         private List<Ticket> userTickets;
+        private List<Ticket> allTickets;
+        private BindingSource bindingSource = new BindingSource();
 
 
         public Form1()
@@ -33,18 +35,26 @@ namespace projetSlamTest
             login.ShowDialog();
             if (login.DialogResult == DialogResult.OK)
             {
+
                 this.Show();
-                if(utilisateur.Type == 0)
+                if(utilisateur.Type >= 0)
                 {
-                    
+                    // Affiche les tickets ouverts par l'utilisateur connecté 
+                    userTickets = new List<Ticket>();
                     userTickets = Db.GetTicketsByUser(utilisateur);
-                    
+                    bindingSource.DataSource = userTickets;
+                    dataGridView2.DataSource = bindingSource;
                 }
-                else if (utilisateur.Type == 1)
+                if(utilisateur.Type >= 1)
                 {
+                    // Affiche tous les tickets
+                    allTickets = new List<Ticket>();
+                    allTickets = Db.GetAllTickets();
+                    bindingSource.DataSource = allTickets;
+                    dataGridView3.DataSource = bindingSource;
 
                 }
-                else if (utilisateur.Type == 2)
+                if(utilisateur.Type >= 2)
                 {
 
                 }
