@@ -59,6 +59,7 @@ namespace projetSlamTest
             // sinon on ferme le programme
             Login login = new Login();
             login.ShowDialog();
+            comboBox1.SelectedIndex = 0;
             if (login.DialogResult == DialogResult.OK)
             {
 
@@ -98,6 +99,9 @@ namespace projetSlamTest
             DateTime currentDateTime = DateTime.Now;
             Ticket ticket = new Ticket(textBox1.Text, Convert.ToInt16(comboBox1.Text), currentDateTime, "En cours", utilisateur.MaterielId, utilisateur.Matricule);
             Db.DeclareIncident(ticket);
+            //clear les champs
+            textBox1.Text = "";
+            comboBox1.SelectedIndex = 0;
             refreshUserTickets();
             if(utilisateur.Type >= 1)
             {

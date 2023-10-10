@@ -112,10 +112,7 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
+            this.comboBox1.Items.AddRange(new object[] { "1", "2", "3" });
             this.comboBox1.Location = new System.Drawing.Point(129, 248);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -274,7 +271,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMateriel)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
