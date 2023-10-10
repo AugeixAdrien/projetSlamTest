@@ -68,6 +68,7 @@ namespace projetSlamTest
 
                 if(utilisateur.Type >= 0)
                 {
+                    // Affiche les tickets ouverts par l'utilisateur connecté 
                     refreshUserTickets();
                 }
                 if(utilisateur.Type >= 1)
