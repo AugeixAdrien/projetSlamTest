@@ -30,7 +30,7 @@ namespace projetSlamTest
 
         private void refreshAllTickets()
         {
-            BindingSource bindingSource = new BindingSource();
+            var bindingSource = new BindingSource();
             allTickets = new List<Ticket>();
             allTickets = Db.GetAllTickets();
             bindingSource.DataSource = allTickets;
@@ -39,6 +39,7 @@ namespace projetSlamTest
 
         private void refreshMateriels()
         {
+            var bindingSourceMateriel = new BindingSource();
             var materiels = new List<Materiel>();
             materiels = Db.GetAllMateriel();
             bindingSourceMateriel.DataSource = materiels;
@@ -74,7 +75,6 @@ namespace projetSlamTest
                     // Affiche tous les tickets
                     refreshAllTickets();
                     
-                    var bindingSourceMateriel = new BindingSource();
                     // affiche tout le matériel dans le datagridview dataGridMateriel
                     refreshMateriels();
                     
