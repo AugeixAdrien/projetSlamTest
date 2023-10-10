@@ -17,7 +17,6 @@ namespace projetSlamTest
 
         private List<Ticket> userTickets;
         private List<Ticket> allTickets;
-        private BindingSource bindingSource = new BindingSource();
 
 
         public Form1()
@@ -39,6 +38,7 @@ namespace projetSlamTest
                 this.Show();
                 if(utilisateur.Type >= 0)
                 {
+                    var bindingSource = new BindingSource();
                     // Affiche les tickets ouverts par l'utilisateur connecté 
                     userTickets = new List<Ticket>();
                     userTickets = Db.GetTicketsByUser(utilisateur);
@@ -48,10 +48,19 @@ namespace projetSlamTest
                 if(utilisateur.Type >= 1)
                 {
                     // Affiche tous les tickets
+                    var bindingSource = new BindingSource();
                     allTickets = new List<Ticket>();
                     allTickets = Db.GetAllTickets();
                     bindingSource.DataSource = allTickets;
                     dataGridView3.DataSource = bindingSource;
+                    
+                    var bindingSourceMateriel = new BindingSource();
+                    // affiche tout le matériel dans le datagridview dataGridMateriel
+                    var materiels = new List<Materiel>();
+                    materiels = Db.GetAllMateriel();
+                    bindingSourceMateriel.DataSource = materiels;
+                    dataGridMateriel.DataSource = bindingSourceMateriel;
+                    
 
                 }
                 if(utilisateur.Type >= 2)
