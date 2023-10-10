@@ -22,7 +22,10 @@ namespace projetSlamTest
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Ticket ticket = new Ticket((int)reader["id"], (string)reader["objet"], (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], (string)reader["etatDemande"], (int)reader["technicienId"], (int)reader["materielId"], (string)reader["personnelMatricule"]);
+                var ticket = new Ticket((int)reader["id"], (string)reader["objet"], 
+                    (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], 
+                    (string)reader["etatDemande"], (int)reader["technicienId"], 
+                    (int)reader["materielId"], (string)reader["personnelMatricule"]);
                 ticketList.Add(ticket);
             }
             connection.Close();
@@ -31,14 +34,17 @@ namespace projetSlamTest
 
         public static List<Ticket> GetAllTickets()
         {
-            List<Ticket> ticketList = new List<Ticket>();
+            var ticketList = new List<Ticket>();
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM tickets";
-            MySqlDataReader reader = cmd.ExecuteReader();
+            var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Ticket ticket = new Ticket((int)reader["id"], (string)reader["objet"], (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], (string)reader["etatDemande"], (int)reader["technicienId"], (int)reader["materielId"], (string)reader["personnelMatricule"]);
+                var ticket = new Ticket((int)reader["id"], (string)reader["objet"], 
+                    (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], 
+                    (string)reader["etatDemande"], (int)reader["technicienId"], 
+                    (int)reader["materielId"], (string)reader["personnelMatricule"]);
                 ticketList.Add(ticket);
             }
             connection.Close();
@@ -48,7 +54,7 @@ namespace projetSlamTest
         public static void AddTechnicien(Technicien technicien)
         {
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO techniciens (niveau, formation, competences, matricule) VALUES (@niveau, @formation, @competences, @matricule)";
             cmd.Parameters.AddWithValue("@niveau", technicien.Niveau);
             cmd.Parameters.AddWithValue("@formation", technicien.Formation);
@@ -61,7 +67,7 @@ namespace projetSlamTest
         public static void EditTechnicien(Technicien technicien)
         {
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "UPDATE techniciens SET niveau = @niveau, formation = @formation, competences = @competences, matricule = @matricule WHERE id = @id";
             cmd.Parameters.AddWithValue("@niveau", technicien.Niveau);
             cmd.Parameters.AddWithValue("@formation", technicien.Formation);
@@ -74,7 +80,7 @@ namespace projetSlamTest
         public static void DeleteTechnicien(Technicien technicien)
         {
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "DELETE FROM techniciens WHERE id = @id";
             cmd.Parameters.AddWithValue("@id", technicien.Id);
             cmd.ExecuteNonQuery();
@@ -84,7 +90,7 @@ namespace projetSlamTest
         public static void PriseEnChargeIncident(Ticket ticket, Technicien technicien)
         {
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "UPDATE tickets SET technicienId = @technicienId WHERE id = @ticketId";
             cmd.Parameters.AddWithValue("@ticketId", ticket.Id);
             cmd.Parameters.AddWithValue("@technicienId", technicien.Id);
@@ -95,7 +101,7 @@ namespace projetSlamTest
         public static void EditUser(Personnel personnel)
         {
             connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            var cmd = connection.CreateCommand();
             cmd.CommandText = "UPDATE personnels SET dateEmbauche = @dateEmbauche, motDePasse = @motDePasse, type = @type, materielId = @materielId WHERE matricule = @matricule";
             cmd.Parameters.AddWithValue("@matricule", personnel.Matricule);
             cmd.Parameters.AddWithValue("@dateEmbauche", personnel.DateEmbauche);
@@ -299,6 +305,28 @@ namespace projetSlamTest
                 reader.GetInt32(3), reader.GetInt32(4));
             connection.Close();
             return personnel;
+        }
+        
+        // get all materiel
+        public static List<Materiel> GetAllMateriel()
+        {
+            var materielList = new List<Materiel>();
+            connection.Open();
+            var cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM materiels";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var logicielListe = reader.GetString(4).Split(new char[] { ',' }, StringSplitOptions
+                    .RemoveEmptyEntries).ToList();
+                var materiel = new Materiel((int)reader["id"], (string)reader["processeur"],
+                    (string)reader["memoire"], (string)reader["disque"], logicielListe, 
+                    (DateTime)reader["dateAchat"], (string)reader["garantie"], 
+                    (string)reader["fournisseur"]);
+                materielList.Add(materiel);
+            }
+            connection.Close();
+            return materielList;
         }
     }
 }
