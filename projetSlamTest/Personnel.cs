@@ -14,14 +14,14 @@ namespace projetSlamTest
             Matricule = matricule;
             DateEmbauche = dateEmbauche;
             MotDePasse = motDePasse;
-            Type = type;
+            Type = type; // 0 : utilisateur, 1 : technicien, 2 : responsable
             MaterielId = materielId;
         }
 
         public string Matricule { get; set; }
         public DateTime DateEmbauche { get; set; }
         public string MotDePasse { get; set; }
-        public int Type { get; set; }
+        public int Type { get; set; } 
         public int MaterielId {get; set;} 
 
     }

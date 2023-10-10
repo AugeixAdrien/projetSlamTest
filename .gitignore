@@ -1,10 +1,5 @@
 *.log
 *.exe
 *.cache
-projetSlamTest/obj/Debug/projetSlamTest.csproj.AssemblyReference.cache
-*.cache
-*.vsidx
-*.vsidx
+.idea/
 *.exe
-*.cache
-*.cache

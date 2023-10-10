@@ -256,5 +256,21 @@ namespace projetSlamTest
             return nbIncidents;
         }
         
+        // get user
+        // retourne un utilisateur en fonction de son matricule
+        
+        public static Personnel GetUser(string matricule)
+        {
+            connection.Open();
+            var cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM personnels WHERE matricule = @matricule";
+            cmd.Parameters.AddWithValue("@matricule", matricule);
+            var reader = cmd.ExecuteReader();
+            reader.Read();
+            var personnel = new Personnel(reader.GetString(0), reader.GetDateTime(1), reader.GetString(2), 
+                reader.GetInt32(3), reader.GetInt32(4));
+            connection.Close();
+            return personnel;
+        }
     }
 }

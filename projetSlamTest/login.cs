@@ -18,6 +18,7 @@ namespace projetSlamTest
             if (Db.Authentification(login, password))
             {
                 DialogResult = DialogResult.OK;
+                Form1.utilisateur = Db.GetUser(login);
                 Close();
             }
             else

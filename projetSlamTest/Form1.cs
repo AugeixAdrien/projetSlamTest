@@ -12,6 +12,9 @@ namespace projetSlamTest
 {
     public partial class Form1 : Form
     {
+        
+        public static Personnel utilisateur;
+        
         public Form1()
         {
             InitializeComponent();
