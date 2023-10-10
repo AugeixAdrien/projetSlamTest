@@ -4,3 +4,6 @@
 projetSlamTest/obj/Debug/projetSlamTest.csproj.AssemblyReference.cache
 *.cache
 *.vsidx
+*.vsidx
+*.exe
+*.cache
