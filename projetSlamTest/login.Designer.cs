@@ -46,6 +46,7 @@ namespace projetSlamTest
             this.label1.TabIndex = 0;
             this.label1.Text = "matricule";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // loginTB
             // 
@@ -93,8 +94,10 @@ namespace projetSlamTest
             this.Controls.Add(this.label1);
             this.Name = "Login";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button loginButton;

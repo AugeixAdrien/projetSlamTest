@@ -9,7 +9,7 @@ namespace projetSlamTest
         private static string connectionString = "Server=127.0.0.1;Database=projet_cs;Uid=root;Password=;SslMode=none";
         private static MySqlConnection connection = new MySqlConnection(connectionString);
 
-        public static void addTechnicien(Technicien technicien)
+        public static void AddTechnicien(Technicien technicien)
         {
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
@@ -22,7 +22,7 @@ namespace projetSlamTest
             connection.Close();
         }
 
-        public static void editTechnicien(Technicien technicien)
+        public static void EditTechnicien(Technicien technicien)
         {
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
@@ -35,7 +35,7 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             connection.Close();
         }
-        public static void deleteTechnicien(Technicien technicien)
+        public static void DeleteTechnicien(Technicien technicien)
         {
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
@@ -45,7 +45,7 @@ namespace projetSlamTest
             connection.Close();
         }
 
-        public static void priseEnChargeIncident(Ticket ticket, Technicien technicien)
+        public static void PriseEnChargeIncident(Ticket ticket, Technicien technicien)
         {
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
@@ -56,7 +56,7 @@ namespace projetSlamTest
             connection.Close();
         }
 
-        public static void editUser(Personnel personnel)
+        public static void EditUser(Personnel personnel)
         {
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
@@ -70,12 +70,36 @@ namespace projetSlamTest
             connection.Close();
         }
 
-        public static int nbIncidents()
+        public static int NbIncidents()
         {
             int nb = 0;
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT COUNT(*) FROM tickets";
+            nb = (int)cmd.ExecuteScalar();
+            connection.Close();
+            return nb;
+        }
+
+        public static int ResolvedIncidents()
+        {
+            int nb = 0;
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM tickets WHERE etatDemande = 'résolu'";
+            nb = (int)cmd.ExecuteScalar();
+            connection.Close();
+            return nb;
+        }
+
+        public static int SolvedIncidentsByTechnician(Technicien technicien)
+        {
+            int nb = 0;
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM tickets WHERE etatDemande = 'résolu' AND technicienId = @technicienId";
+            cmd.Parameters.AddWithValue("@technicienId", technicien.Id);
+            nb = (int)cmd.ExecuteScalar();
             connection.Close();
             return nb;
         }
