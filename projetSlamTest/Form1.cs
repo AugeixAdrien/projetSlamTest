@@ -31,6 +31,18 @@ namespace projetSlamTest
             if (login.DialogResult == DialogResult.OK)
             {
                 this.Show();
+                if(utilisateur.Type == 0)
+                {
+
+                }
+                else if (utilisateur.Type == 1)
+                {
+
+                }
+                else if (utilisateur.Type == 2)
+                {
+
+                }
             }
             else
             {

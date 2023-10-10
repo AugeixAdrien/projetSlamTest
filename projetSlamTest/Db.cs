@@ -12,6 +12,29 @@ namespace projetSlamTest
         private static string connectionString = "Server=127.0.0.1;Database=projet_cs;Uid=root;Password=;SslMode=none";
         private static MySqlConnection connection = new MySqlConnection(connectionString);
 
+        public static List<Ticket> GetTicketsByUser(Personnel personnel)
+        {
+            List<Ticket> ticketList = new List<Ticket>();
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM tickets WHERE personnelMatricule = @personnelMatricule";
+            cmd.Parameters.AddWithValue("@personnelMatricule", personnel.Matricule);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Ticket ticket = new Ticket((int)reader["id"], (string)reader["objet"], (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"], (string)reader["etatDemande"], (int)reader["technicienId"], (int)reader["materielId"], (string)reader["personnelMatricule"]);
+                ticketList.Add(ticket);
+            }
+            connection.Close();
+            return ticketList;
+        }
+
+        public static List<Ticket> GetAllTickets()
+        {
+            List<Ticket> ticketList = new List<Ticket>();
+            return ticketList;
+        }
+
         public static void AddTechnicien(Technicien technicien)
         {
             connection.Open();
