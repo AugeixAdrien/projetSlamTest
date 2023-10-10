@@ -106,12 +106,16 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Ouvrir un ticket";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] { "1", "2", "3" });
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
             this.comboBox1.Location = new System.Drawing.Point(129, 248);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -147,6 +151,7 @@
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(129, 87);
             this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 1;
             // 
@@ -269,6 +274,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMateriel)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion

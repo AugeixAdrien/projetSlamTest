@@ -18,6 +18,32 @@ namespace projetSlamTest
         private List<Ticket> userTickets;
         private List<Ticket> allTickets;
 
+        private void refreshUserTickets()
+        {
+            var bindingSource = new BindingSource();
+            // Affiche les tickets ouverts par l'utilisateur connecté 
+            userTickets = new List<Ticket>();
+            userTickets = Db.GetTicketsByUser(utilisateur);
+            bindingSource.DataSource = userTickets;
+            dataGridView2.DataSource = bindingSource;
+        }
+
+        private void refreshAllTickets()
+        {
+            BindingSource bindingSource = new BindingSource();
+            allTickets = new List<Ticket>();
+            allTickets = Db.GetAllTickets();
+            bindingSource.DataSource = allTickets;
+            dataGridView3.DataSource = bindingSource;
+        }
+
+        private void refreshMateriels()
+        {
+            var materiels = new List<Materiel>();
+            materiels = Db.GetAllMateriel();
+            bindingSourceMateriel.DataSource = materiels;
+            dataGridMateriel.DataSource = bindingSourceMateriel;
+        }
 
         public Form1()
         {
@@ -36,32 +62,21 @@ namespace projetSlamTest
             {
 
                 this.Show();
+
+                numericUpDown1.Value = utilisateur.MaterielId;
+
                 if(utilisateur.Type >= 0)
                 {
-                    var bindingSource = new BindingSource();
-                    // Affiche les tickets ouverts par l'utilisateur connecté 
-                    BindingSource bindingSource = new BindingSource();
-                    userTickets = new List<Ticket>();
-                    userTickets = Db.GetTicketsByUser(utilisateur);
-                    bindingSource.DataSource = userTickets;
-                    dataGridView2.DataSource = bindingSource;
+                    refreshUserTickets();
                 }
                 if(utilisateur.Type >= 1)
                 {
                     // Affiche tous les tickets
-                    BindingSource bindingSource = new BindingSource();
-                    var bindingSource = new BindingSource();
-                    allTickets = new List<Ticket>();
-                    allTickets = Db.GetAllTickets();
-                    bindingSource.DataSource = allTickets;
-                    dataGridView3.DataSource = bindingSource;
+                    refreshAllTickets();
                     
                     var bindingSourceMateriel = new BindingSource();
                     // affiche tout le matériel dans le datagridview dataGridMateriel
-                    var materiels = new List<Materiel>();
-                    materiels = Db.GetAllMateriel();
-                    bindingSourceMateriel.DataSource = materiels;
-                    dataGridMateriel.DataSource = bindingSourceMateriel;
+                    refreshMateriels();
                     
 
                 }
@@ -76,13 +91,19 @@ namespace projetSlamTest
             }
             
         }
-        
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //test
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            Ticket ticket = new Ticket(textBox1.Text, Convert.ToInt16(comboBox1.Text), currentDateTime, "En cours", utilisateur.MaterielId, utilisateur.Matricule);
+            Db.DeclareIncident(ticket);
+            refreshUserTickets();
+            if(utilisateur.Type >= 1)
+            {
+                refreshAllTickets();
+            }
         }
-        
+
         // créé une fonction qui print 
     }
 }

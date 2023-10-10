@@ -207,18 +207,17 @@ namespace projetSlamTest
             connection.Close();
         }
         
-        public void DeclareIncident(Ticket ticket)
+        public static void DeclareIncident(Ticket ticket)
         {
             connection.Open();
             var cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO tickets (objet, niveauUrgence, dateCreation, etatDemande, " +
-                              "technicienId, materielId) VALUES (@objet, @niveauUrgence, @dateCreation," +
-                              " @etatDemande, @technicienId, @materielId, @personnelId)";
+                              "technicienId, materielId, personnelMatricule) VALUES (@objet, @niveauUrgence, @dateCreation," +
+                              " @etatDemande, '-1', @materielId, @personnelId)";
             cmd.Parameters.AddWithValue("@objet", ticket.Objet);
             cmd.Parameters.AddWithValue("@niveauUrgence", ticket.NiveauUrgence);
             cmd.Parameters.AddWithValue("@dateCreation", ticket.DateCreation);
             cmd.Parameters.AddWithValue("@etatDemande", ticket.Etat);
-            cmd.Parameters.AddWithValue("@technicienId", ticket.IdTechnicien);
             cmd.Parameters.AddWithValue("@materielId", ticket.IdMateriel);
             cmd.Parameters.AddWithValue("@personnelId", ticket.Matricule);
             cmd.ExecuteNonQuery();
