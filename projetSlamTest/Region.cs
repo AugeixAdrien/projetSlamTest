@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace projetSlamTest
+﻿namespace projetSlamTest
 {
     /// <summary>
     /// Cette classe représente une région, qui peut correspondre à un pays.
@@ -25,11 +19,11 @@ namespace projetSlamTest
         /// <summary>
         /// Obtient l'identifiant de la région.
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; }
 
         /// <summary>
         /// Obtient le nom de la région, qui peut correspondre à un pays.
         /// </summary>
-        public string Nom { get; private set; }
+        public string Nom { get; }
     }
 }

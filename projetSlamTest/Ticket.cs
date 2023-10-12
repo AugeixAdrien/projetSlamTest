@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
@@ -87,7 +83,7 @@ namespace projetSlamTest
         /// <summary>
         /// Obtient ou définit l'identifiant du technicien affecté au ticket.
         /// </summary>
-        public int IdTechnicien { get; set; }
+        public int IdTechnicien { get; }
 
         /// <summary>
         /// Obtient l'état du ticket.

@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace projetSlamTest
@@ -15,13 +9,12 @@ namespace projetSlamTest
     /// </summary>
     public partial class Form1 : Form
     {
-        
         public static Personnel Utilisateur;
 
         private List<Ticket> _userTickets;
         private List<Ticket> _allTickets;
 
-        private Ticket selectedTicket;
+        private Ticket _selectedTicket;
         
         /// <summary>
         /// rafrachit les tickets de l'utilisateur et les affiche dans le datagridview correspondant
@@ -143,24 +136,21 @@ namespace projetSlamTest
 
         private void dataGridView3_Click(object sender, EventArgs e)
         {
-            if (dataGridView3.SelectedRows.Count > 0)
-            {
-                DataGridViewRow selectedRow = dataGridView3.SelectedRows[0]; // Prend la première ligne sélectionnée
-                                                                             // Vous pouvez accéder aux cellules de la ligne sélectionnée comme ceci :
-                int cellValue = (int)selectedRow.Cells["id"].Value;
-                selectedTicket = Db.GetTicketById(cellValue);
-                if(selectedTicket != null)
-                {
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                    button5.Enabled = true;
-                }
-            }
+            if (dataGridView3.SelectedRows.Count <= 0) return; // si y'a rien on skip
+            
+            var selectedRow = dataGridView3.SelectedRows[0]; // Prend la première ligne sélectionnée
+            // Vous pouvez accéder aux cellules de la ligne sélectionnée comme ceci :
+            var cellValue = (int)selectedRow.Cells["id"].Value;
+            _selectedTicket = Db.GetTicketById(cellValue);
+            if (_selectedTicket == null) return;
+            button2.Enabled = true;
+            button4.Enabled = true;
+            button5.Enabled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Db.CloseTicket(selectedTicket.Id);
+            Db.CloseTicket(_selectedTicket.Id);
             RefreshAllTickets();
         }
 
@@ -176,7 +166,7 @@ namespace projetSlamTest
 
         private void button6_Click(object sender, EventArgs e)
         {
-            List<string> logiciels = new List<string>();
+            var logiciels = new List<string>();
             if (checkBox1.Checked)
             {
                 logiciels.Add("Word");
@@ -193,9 +183,20 @@ namespace projetSlamTest
             {
                 logiciels.Add("Photoshop");
             }
-            Materiel materiel = new Materiel(textBox2.Text, textBox3.Text, textBox4.Text, logiciels, dateTimePicker1.Value, textBox5.Text, textBox6.Text);
+            var materiel = new Materiel(textBox2.Text, textBox3.Text, textBox4.Text, logiciels, dateTimePicker1.Value, textBox5.Text, textBox6.Text);
             Db.AddMateriel(materiel);
             RefreshMateriels();
+            // clear les champs
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
+            checkBox3.Checked = false;
+            checkBox4.Checked = false;
+            dateTimePicker1.Value = DateTime.Now;
+            textBox5.Text = "";
+            textBox6.Text = "";
         }
     }
 }

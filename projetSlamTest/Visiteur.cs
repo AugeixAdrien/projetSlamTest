@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
@@ -35,21 +31,21 @@ namespace projetSlamTest
         /// <summary>
         /// Obtient ou définit l'objectif du visiteur.
         /// </summary>
-        public string Objectif { get; set; }
+        public string Objectif { get; }
 
         /// <summary>
         /// Obtient ou définit le budget du visiteur.
         /// </summary>
-        public string Budget { get; set; }
+        public string Budget { get; }
 
         /// <summary>
         /// Obtient ou définit la prime du visiteur.
         /// </summary>
-        public string Prime { get; set; }
+        public string Prime { get; }
 
         /// <summary>
         /// Obtient ou définit l'identifiant du visiteur.
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; }
     }
 }

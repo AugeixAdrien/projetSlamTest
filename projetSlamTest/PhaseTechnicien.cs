@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace projetSlamTest
 {
@@ -29,21 +25,21 @@ namespace projetSlamTest
         /// <summary>
         /// Obtient ou définit l'identifiant de la phase de travail.
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; }
 
         /// <summary>
         /// Obtient ou définit la date de début de la phase de travail.
         /// </summary>
-        public DateTime DateDebut { get; set; }
+        public DateTime DateDebut { get; }
 
         /// <summary>
         /// Obtient ou définit la date de fin de la phase de travail.
         /// </summary>
-        public DateTime DateFin { get; set; }
+        public DateTime DateFin { get; }
 
         /// <summary>
         /// Obtient ou définit la description du travail réalisé lors de la phase de travail.
         /// </summary>
-        public string TravailRealise { get; set; }
+        public string TravailRealise { get; }
     }
 }
