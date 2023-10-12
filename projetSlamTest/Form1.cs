@@ -22,8 +22,7 @@ namespace projetSlamTest
         private List<Ticket> _allTickets;
 
         private Ticket selectedTicket;
-
-        private void refreshUserTickets()
+        
         /// <summary>
         /// rafrachit les tickets de l'utilisateur et les affiche dans le datagridview correspondant
         /// </summary>
@@ -86,12 +85,14 @@ namespace projetSlamTest
 
                 this.Show();
 
-                numericUpDown1.Value = utilisateur.MaterielId;
+                numericUpDown1.Value = Utilisateur.MaterielId;
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                if (utilisateur.Type >= 0)
-                numericUpDown1.Value = Utilisateur.MaterielId;
+                if (Utilisateur.Type >= 0)
+                {
+                    numericUpDown1.Value = Utilisateur.MaterielId;
+                }
 
                 if(Utilisateur.Type >= 0)
                 {
@@ -160,7 +161,7 @@ namespace projetSlamTest
         private void button2_Click(object sender, EventArgs e)
         {
             Db.CloseTicket(selectedTicket.Id);
-            refreshAllTickets();
+            RefreshAllTickets();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -194,7 +195,7 @@ namespace projetSlamTest
             }
             Materiel materiel = new Materiel(textBox2.Text, textBox3.Text, textBox4.Text, logiciels, dateTimePicker1.Value, textBox5.Text, textBox6.Text);
             Db.AddMateriel(materiel);
-            refreshMateriels();
+            RefreshMateriels();
         }
     }
 }
