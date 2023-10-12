@@ -18,7 +18,7 @@ namespace projetSlamTest
             if (Db.Authentification(login, password))
             {
                 DialogResult = DialogResult.OK;
-                Form1.utilisateur = Db.GetUser(login);
+                Form1.Utilisateur = Db.GetUser(login);
                 Close();
             }
             else
@@ -27,20 +27,16 @@ namespace projetSlamTest
             }
             
         }
-        
-        private void Login_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            // je sais pas ce que c'est mais j'arrive pas à le supprimer
+            // il a l'air de se sentir bien ici donc je vais pas le déranger
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-
+            // pareil, trop choupi la fonction
         }
     }
 }

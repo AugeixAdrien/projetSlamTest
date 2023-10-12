@@ -46,22 +46,20 @@ namespace projetSlamTest
             Matricule = personnelMatricule;
         }
 
-        public int IdMateriel { get; set; }
+        public int IdMateriel { get; }
         
-        public string Matricule { get; set; }
+        public string Matricule { get; }
 
         public int IdTechnicien { get; set; }
 
-        public string Etat { get; set; }
+        public string Etat { get; }
 
-        public DateTime DateCreation { get; set; }
+        public DateTime DateCreation { get; }
 
-        public int NiveauUrgence { get; set; }
+        public int NiveauUrgence { get; }
 
-        public string Objet { get; set; }
+        public string Objet { get; }
 
-        public int Id { get; set; }
-
-        public int PersonnelMatricule { get; set; }
+        public int Id { get; }
     }
 }

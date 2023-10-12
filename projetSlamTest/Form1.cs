@@ -13,35 +13,34 @@ namespace projetSlamTest
     public partial class Form1 : Form
     {
         
-        public static Personnel utilisateur;
+        public static Personnel Utilisateur;
 
-        private List<Ticket> userTickets;
-        private List<Ticket> allTickets;
+        private List<Ticket> _userTickets;
+        private List<Ticket> _allTickets;
 
-        private void refreshUserTickets()
+        private void RefreshUserTickets()
         {
             var bindingSource = new BindingSource();
             // Affiche les tickets ouverts par l'utilisateur connecté 
-            userTickets = new List<Ticket>();
-            userTickets = Db.GetTicketsByUser(utilisateur);
-            bindingSource.DataSource = userTickets;
+            _userTickets = new List<Ticket>();
+            _userTickets = Db.GetTicketsByUser(Utilisateur);
+            bindingSource.DataSource = _userTickets;
             dataGridView2.DataSource = bindingSource;
         }
 
-        private void refreshAllTickets()
+        private void RefreshAllTickets()
         {
             var bindingSource = new BindingSource();
-            allTickets = new List<Ticket>();
-            allTickets = Db.GetAllTickets();
-            bindingSource.DataSource = allTickets;
+            _allTickets = new List<Ticket>();
+            _allTickets = Db.GetAllTickets();
+            bindingSource.DataSource = _allTickets;
             dataGridView3.DataSource = bindingSource;
         }
 
-        private void refreshMateriels()
+        private void RefreshMateriels()
         {
             var bindingSourceMateriel = new BindingSource();
-            var materiels = new List<Materiel>();
-            materiels = Db.GetAllMateriel();
+            var materiels = Db.GetAllMateriel();
             bindingSourceMateriel.DataSource = materiels;
             dataGridMateriel.DataSource = bindingSourceMateriel;
         }
@@ -49,7 +48,6 @@ namespace projetSlamTest
         public Form1()
         {
             InitializeComponent();
-            //test2
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -57,7 +55,7 @@ namespace projetSlamTest
             // ouvre la fenetre login.cs et attend la fermeture de celle-ci
             // si le login est bon on active cette fenetre
             // sinon on ferme le programme
-            Login login = new Login();
+            var login = new Login();
             login.ShowDialog();
             comboBox1.SelectedIndex = 0;
             if (login.DialogResult == DialogResult.OK)
@@ -65,24 +63,24 @@ namespace projetSlamTest
 
                 this.Show();
 
-                numericUpDown1.Value = utilisateur.MaterielId;
+                numericUpDown1.Value = Utilisateur.MaterielId;
 
-                if(utilisateur.Type >= 0)
+                if(Utilisateur.Type >= 0)
                 {
                     // Affiche les tickets ouverts par l'utilisateur connecté 
-                    refreshUserTickets();
+                    RefreshUserTickets();
                 }
-                if(utilisateur.Type >= 1)
+                if(Utilisateur.Type >= 1)
                 {
                     // Affiche tous les tickets
-                    refreshAllTickets();
+                    RefreshAllTickets();
                     
                     // affiche tout le matériel dans le datagridview dataGridMateriel
-                    refreshMateriels();
+                    RefreshMateriels();
                     
 
                 }
-                if(utilisateur.Type >= 2)
+                if(Utilisateur.Type >= 2)
                 {
 
                 }
@@ -96,19 +94,17 @@ namespace projetSlamTest
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            DateTime currentDateTime = DateTime.Now;
-            Ticket ticket = new Ticket(textBox1.Text, Convert.ToInt16(comboBox1.Text), currentDateTime, "En cours", utilisateur.MaterielId, utilisateur.Matricule);
+            var currentDateTime = DateTime.Now;
+            var ticket = new Ticket(textBox1.Text, Convert.ToInt16(comboBox1.Text), currentDateTime, "En cours", Utilisateur.MaterielId, Utilisateur.Matricule);
             Db.DeclareIncident(ticket);
             //clear les champs
             textBox1.Text = "";
             comboBox1.SelectedIndex = 0;
-            refreshUserTickets();
-            if(utilisateur.Type >= 1)
+            RefreshUserTickets();
+            if(Utilisateur.Type >= 1)
             {
-                refreshAllTickets();
+                RefreshAllTickets();
             }
         }
-
-        // créé une fonction qui print 
     }
 }
