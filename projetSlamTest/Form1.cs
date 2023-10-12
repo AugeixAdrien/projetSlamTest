@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace projetSlamTest
 {
+    /// <summary>
+    /// chargement du formulaire principal
+    /// </summary>
     public partial class Form1 : Form
     {
         
@@ -18,6 +21,9 @@ namespace projetSlamTest
         private List<Ticket> _userTickets;
         private List<Ticket> _allTickets;
 
+        /// <summary>
+        /// rafrachit les tickets de l'utilisateur et les affiche dans le datagridview correspondant
+        /// </summary>
         private void RefreshUserTickets()
         {
             var bindingSource = new BindingSource();
@@ -28,6 +34,9 @@ namespace projetSlamTest
             dataGridView2.DataSource = bindingSource;
         }
 
+        /// <summary>
+        /// raffraichit tous les tickets et les affiche dans le datagridview correspondant pour les techniciens et les responsables
+        /// </summary>
         private void RefreshAllTickets()
         {
             var bindingSource = new BindingSource();
@@ -37,6 +46,9 @@ namespace projetSlamTest
             dataGridView3.DataSource = bindingSource;
         }
 
+        /// <summary>
+        /// affiche tout le matériel dans le datagridview pour les techniciens et les responsables
+        /// </summary>
         private void RefreshMateriels()
         {
             var bindingSourceMateriel = new BindingSource();
@@ -45,11 +57,19 @@ namespace projetSlamTest
             dataGridMateriel.DataSource = bindingSourceMateriel;
         }
 
+        /// <summary>
+        /// initialise le formulaire principal
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// ouvre la fenetre login.cs et attend la fermeture de celle-ci, si le login est bon on active cette fenetre, sinon on ferme le programme
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
             // ouvre la fenetre login.cs et attend la fermeture de celle-ci
@@ -92,6 +112,11 @@ namespace projetSlamTest
             
         }
 
+        /// <summary>
+        /// quand on clique sur le bouton "déclarer un incident" on ajoute un ticket dans la base de données avec les informations rentrées dans les champs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click_1(object sender, EventArgs e)
         {
             var currentDateTime = DateTime.Now;
