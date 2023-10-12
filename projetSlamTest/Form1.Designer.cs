@@ -307,7 +307,10 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] { "1", "2", "3" });
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
             this.comboBox1.Location = new System.Drawing.Point(129, 248);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -459,20 +462,25 @@
             // 
             // button3
             // 
+            this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(6, 363);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(124, 31);
             this.button3.TabIndex = 3;
             this.button3.Text = "Supprimer le matériel";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // dataGridMateriel
             // 
             this.dataGridMateriel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMateriel.Location = new System.Drawing.Point(6, 6);
+            this.dataGridMateriel.MultiSelect = false;
             this.dataGridMateriel.Name = "dataGridMateriel";
+            this.dataGridMateriel.ReadOnly = true;
             this.dataGridMateriel.Size = new System.Drawing.Size(756, 351);
             this.dataGridMateriel.TabIndex = 0;
+            this.dataGridMateriel.Click += new System.EventHandler(this.dataGridMateriel_Click);
             // 
             // tabControl1
             // 
@@ -509,6 +517,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMateriel)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion

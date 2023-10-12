@@ -15,6 +15,7 @@ namespace projetSlamTest
         private List<Ticket> _allTickets;
 
         private Ticket _selectedTicket;
+        private Materiel _selectedMateriel;
         
         /// <summary>
         /// rafrachit les tickets de l'utilisateur et les affiche dans le datagridview correspondant
@@ -79,6 +80,7 @@ namespace projetSlamTest
                 this.Show();
 
                 numericUpDown1.Value = Utilisateur.MaterielId;
+                dataGridMateriel.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
@@ -197,6 +199,27 @@ namespace projetSlamTest
             dateTimePicker1.Value = DateTime.Now;
             textBox5.Text = "";
             textBox6.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Db.DeleteMateriel(_selectedMateriel);
+            RefreshMateriels();
+        }
+
+        private void dataGridMateriel_Click(object sender, EventArgs e)
+        {
+            if (dataGridMateriel.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridMateriel.SelectedRows[0]; // Prend la première ligne sélectionnée
+                                                                             // Vous pouvez accéder aux cellules de la ligne sélectionnée comme ceci :
+                int cellValue = (int)selectedRow.Cells["id"].Value;
+                _selectedMateriel = Db.GetMaterielById(cellValue);
+                if (_selectedMateriel != null)
+                {
+                    button3.Enabled = true;
+                }
+            }
         }
     }
 }

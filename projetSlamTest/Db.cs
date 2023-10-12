@@ -43,6 +43,11 @@ namespace projetSlamTest
             return ticketList;
         }
 
+        /// <summary>
+        /// réupère un ticket en fonction de son id
+        /// </summary>
+        /// /// <param name="id">donne l'id du ticket ciblé</param>
+        /// /// <returns>un objet ticket</returns>
         public static Ticket GetTicketById(int id)
         {
             Ticket ticket = null;
@@ -62,6 +67,10 @@ namespace projetSlamTest
             return ticket;
         }
 
+        /// <summary>
+        /// change l'état d'un ticket en fonction de son ID
+        /// </summary>
+        /// /// <param name="id">donne l'id du ticket ciblé</param>
         public static void CloseTicket(int id)
         {
             Connection.Open();
@@ -447,6 +456,31 @@ namespace projetSlamTest
             }
             Connection.Close();
             return materielList;
+        }
+
+        /// <summary>
+        /// récupère un materiel en fonction de son id
+        /// </summary>
+        /// <param name="id">l'id du materiel</param>
+        /// <returns>un materiel (objet)</returns>
+        public static Materiel GetMaterielById(int id)
+        {
+            Materiel materiel = null;
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM materiels WHERE id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                var logicielListe = reader.GetString(4).Split(new char[] { ',' }, StringSplitOptions
+                    .RemoveEmptyEntries).ToList();
+                materiel = new Materiel((int)reader["id"], (string)reader["processeur"], (string)reader["memoire"], 
+                    (string)reader["disque"], logicielListe, Convert.ToDateTime(reader["dateAchat"]), 
+                    (string)reader["garantie"], (string)reader["fournisseur"]);
+            }
+            connection.Close();
+            return materiel;
         }
     }
 }
