@@ -1,10 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MySql.Data.MySqlClient;
 
 namespace projetSlamTest
 {
+    /// <summary>
+    /// Cette classe représente les actions sur la base de données.
+    /// </summary>
     public class Db
     {
         // classe de la base de donnée
@@ -12,6 +15,11 @@ namespace projetSlamTest
         private static string connectionString = "Server=127.0.0.1;Database=projet_cs;Uid=root;Password=;SslMode=none";
         private static MySqlConnection connection = new MySqlConnection(connectionString);
 
+        /// <summary>
+        /// récupère tout les tickets ouverts par un utilisateur précis
+        /// </summary>
+        /// <param name="personnel">le personnel dont on veut avoir les tickets</param>
+        /// <returns>une liste de tickets par un utilisateur précis</returns>
         public static List<Ticket> GetTicketsByUser(Personnel personnel)
         {
             List<Ticket> ticketList = new List<Ticket>();
@@ -61,6 +69,10 @@ namespace projetSlamTest
             connection.Close();
         }
 
+        /// <summary>
+        /// retourne tout les tickets pour les techniciens et les responsables
+        /// </summary>
+        /// <returns>une liste de tout les tickets</returns>
         public static List<Ticket> GetAllTickets()
         {
             var ticketList = new List<Ticket>();
@@ -80,6 +92,10 @@ namespace projetSlamTest
             return ticketList;
         }
 
+        /// <summary>
+        /// ajoute un technicien dans la base de donnée
+        /// </summary>
+        /// <param name="technicien">retourne un technicien sous la forme d'objet</param>
         public static void AddTechnicien(Technicien technicien)
         {
             connection.Open();
@@ -93,6 +109,10 @@ namespace projetSlamTest
             connection.Close();
         }
 
+        /// <summary>
+        /// permet de modifier un technicien dans la base de donnée
+        /// </summary>
+        /// <param name="technicien">donne un technicien sous forme d'un objet</param>
         public static void EditTechnicien(Technicien technicien)
         {
             connection.Open();
@@ -106,6 +126,10 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+        /// <summary>
+        /// permet de supprimer un technicien à partir d'un objet technicien
+        /// </summary>
+        /// <param name="technicien">technicien sous la forme d'objet</param>
         public static void DeleteTechnicien(Technicien technicien)
         {
             connection.Open();
@@ -115,7 +139,12 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             connection.Close();
         }
-
+        
+        /// <summary>
+        /// permet de définir qu'un technicien s'occupe d'un ticket
+        /// </summary>
+        /// <param name="ticket">le ticket (objet) que l'ont doit prendre en charge</param>
+        /// <param name="technicien">le technicien qui prend en charge le ticket</param>
         public static void PriseEnChargeIncident(Ticket ticket, Technicien technicien)
         {
             connection.Open();
@@ -127,6 +156,10 @@ namespace projetSlamTest
             connection.Close();
         }
 
+        /// <summary>
+        /// permet de modifier un personnel
+        /// </summary>
+        /// <param name="personnel">le personnel modifié sous forme d'objet</param>
         public static void EditUser(Personnel personnel)
         {
             connection.Open();
@@ -141,6 +174,10 @@ namespace projetSlamTest
             connection.Close();
         }
 
+        /// <summary>
+        /// permet de récupérer le nombre d'incidents total déclarés
+        /// </summary>
+        /// <returns>le nombre d'incidents déclarés</returns>
         public static int NbIncidents()
         {
             int nb = 0;
@@ -152,6 +189,10 @@ namespace projetSlamTest
             return nb;
         }
 
+        /// <summary>
+        /// permet de retourner le nombre d'incidents résolus
+        /// </summary>
+        /// <returns>le nombre d'incidents résolus</returns>
         public static int ResolvedIncidents()
         {
             int nb = 0;
@@ -163,6 +204,11 @@ namespace projetSlamTest
             return nb;
         }
 
+        /// <summary>
+        /// retourne le nombre d'incidents résolus par un technicien
+        /// </summary>
+        /// <param name="technicien">le technicien (objet) dont on veut regarder le nombre d'incidents résolus</param>
+        /// <returns>le nombre d'incidents résolus par un techniciens</returns>
         public static int SolvedIncidentsByTechnician(Technicien technicien)
         {
             int nb = 0;
@@ -175,6 +221,12 @@ namespace projetSlamTest
             return nb;
         }
         
+        /// <summary>
+        /// permet de vérifier le login dans la base de donnée
+        /// </summary>
+        /// <param name="id">matricule de l'utilisateur</param>
+        /// <param name="mdp">le mot de passe de</param>
+        /// <returns>true ou false</returns>
         public static bool Authentification(string id, string mdp)
         {
             connection.Open();
@@ -188,6 +240,10 @@ namespace projetSlamTest
             return result;
         }
         
+        /// <summary>
+        /// permet d'ajouter un matériel à la base de donnée
+        /// </summary>
+        /// <param name="materiel">le materiel (objet) à ajouter à la BDD</param>
         public static void AddMateriel(Materiel materiel)
         {
             connection.Open();
@@ -207,7 +263,11 @@ namespace projetSlamTest
             connection.Close();
         }
         
-
+        /// <summary>
+        /// retourne les informations d'un materiel à partir de son id
+        /// </summary>
+        /// <param name="identifiant">identifiant du matériel</param>
+        /// <returns>retourne le materiel à consulter (objet)</returns>
         public static Materiel ConsultMateriel(int identifiant) {
             connection.Open();
             var cmd = connection.CreateCommand();
@@ -226,6 +286,10 @@ namespace projetSlamTest
             return materiel;
         }
         
+        /// <summary>
+        /// permet de supprimer un materiel
+        /// </summary>
+        /// <param name="materiel">le materiel (objet) à supprimer</param>
         public static void DeleteMateriel(Materiel materiel)
         {
             connection.Open();
@@ -236,6 +300,10 @@ namespace projetSlamTest
             connection.Close();
         }
         
+        /// <summary>
+        /// permet de déclarer un incident dans la BDD
+        /// </summary>
+        /// <param name="ticket">le ticket (objet) à déclarer dans la bdd</param>
         public static void DeclareIncident(Ticket ticket)
         {
             connection.Open();
@@ -253,7 +321,11 @@ namespace projetSlamTest
             connection.Close();
         }
         
-        
+        /// <summary>
+        /// retourne un incident à partir de son identifiant
+        /// </summary>
+        /// <param name="identifiant">identifiant de l'incident à consulter</param>
+        /// <returns>l'incident (objet) à consulter</returns>
         public static Ticket ConsultIncident(int identifiant)
         {
             connection.Open();
@@ -269,7 +341,11 @@ namespace projetSlamTest
             return ticket;
         }
         
-        // besoin de passer le ticket en résolu avant de le donner à la methode
+        /// <summary>
+        /// résoud l'incident dans la BDD
+        /// </summary>
+        /// <param name="ticket">le ticket (objet) à résoudre</param>
+        /// <param name="technicien">le technicien (objet) qui résoud le ticket</param>
         public static void ResoudreIncident(Ticket ticket, Technicien technicien)
         {
             connection.Open();
@@ -293,6 +369,10 @@ namespace projetSlamTest
             connection.Close();
         }
         
+        /// <summary>
+        /// ajoute un utilisateur dans la bdd
+        /// </summary>
+        /// <param name="personnel">le personnel à ajouter (objet)</param>
         public static void AddUser(Personnel personnel)
         {
             connection.Open();
@@ -308,6 +388,11 @@ namespace projetSlamTest
             connection.Close();
         }
         
+        /// <summary>
+        /// retourne le nombre d'incidents déclarés par un utilisateur
+        /// </summary>
+        /// <param name="personnel">le personnel à consulter (objet)</param>
+        /// <returns>le nombre d'incidents déclarés par cet utilisateur</returns>
         public static int GetStatsUtilisateur(Personnel personnel)
         {
             connection.Open();
@@ -321,6 +406,11 @@ namespace projetSlamTest
             return nbIncidents;
         }
         
+        /// <summary>
+        /// permet d'obtenir un utilisateur à partir de son matricule
+        /// </summary>
+        /// <param name="matricule">le matricule du personnel</param>
+        /// <returns>un personnel (objet)</returns>
         public static Personnel GetUser(string matricule)
         {
             connection.Open();
@@ -335,7 +425,10 @@ namespace projetSlamTest
             return personnel;
         }
         
-        // get all materiel
+        /// <summary>
+        /// permet d'avoir tout les materiels existants pour les techniciens et les responsables
+        /// </summary>
+        /// <returns>retourne une liste de tout les materiels existants</returns>
         public static List<Materiel> GetAllMateriel()
         {
             var materielList = new List<Materiel>();
