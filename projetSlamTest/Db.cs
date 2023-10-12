@@ -466,20 +466,19 @@ namespace projetSlamTest
         public static Materiel GetMaterielById(int id)
         {
             Materiel materiel = null;
-            connection.Open();
-            MySqlCommand cmd = connection.CreateCommand();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM materiels WHERE id = @id";
             cmd.Parameters.AddWithValue("@id", id);
-            MySqlDataReader reader = cmd.ExecuteReader();
+            var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                var logicielListe = reader.GetString(4).Split(new char[] { ',' }, StringSplitOptions
-                    .RemoveEmptyEntries).ToList();
+                var logicielListe = reader.GetString(4).Split(',').Where(s => !string.IsNullOrEmpty(s)).ToList();
                 materiel = new Materiel((int)reader["id"], (string)reader["processeur"], (string)reader["memoire"], 
                     (string)reader["disque"], logicielListe, Convert.ToDateTime(reader["dateAchat"]), 
                     (string)reader["garantie"], (string)reader["fournisseur"]);
             }
-            connection.Close();
+            Connection.Close();
             return materiel;
         }
     }
