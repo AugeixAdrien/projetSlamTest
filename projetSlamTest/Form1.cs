@@ -18,6 +18,8 @@ namespace projetSlamTest
         private List<Ticket> userTickets;
         private List<Ticket> allTickets;
 
+        private Ticket selectedTicket;
+
         private void refreshUserTickets()
         {
             var bindingSource = new BindingSource();
@@ -49,7 +51,6 @@ namespace projetSlamTest
         public Form1()
         {
             InitializeComponent();
-            //test2
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,8 +66,10 @@ namespace projetSlamTest
                 this.Show();
 
                 numericUpDown1.Value = utilisateur.MaterielId;
+                dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                if(utilisateur.Type >= 0)
+                if (utilisateur.Type >= 0)
                 {
                     // Affiche les tickets ouverts par l'utilisateur connecté 
                     refreshUserTickets();
@@ -78,7 +81,6 @@ namespace projetSlamTest
                     
                     // affiche tout le matériel dans le datagridview dataGridMateriel
                     refreshMateriels();
-                    
 
                 }
                 if(utilisateur.Type >= 2)
@@ -105,6 +107,61 @@ namespace projetSlamTest
             }
         }
 
-        // créé une fonction qui print 
+        private void dataGridView3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView3.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView3.SelectedRows[0]; // Prend la première ligne sélectionnée
+                                                                             // Vous pouvez accéder aux cellules de la ligne sélectionnée comme ceci :
+                int cellValue = (int)selectedRow.Cells["id"].Value;
+                selectedTicket = Db.GetTicketById(cellValue);
+                if(selectedTicket != null)
+                {
+                    button2.Enabled = true;
+                    button4.Enabled = true;
+                    button5.Enabled = true;
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Db.CloseTicket(selectedTicket.Id);
+            refreshAllTickets();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            List<string> logiciels = new List<string>();
+            if (checkBox1.Checked)
+            {
+                logiciels.Add("Word");
+            }
+            if (checkBox2.Checked)
+            {
+                logiciels.Add("Excel");
+            }
+            if (checkBox3.Checked)
+            {
+                logiciels.Add("Ratio");
+            }
+            if (checkBox4.Checked)
+            {
+                logiciels.Add("Photoshop");
+            }
+            Materiel materiel = new Materiel(textBox2.Text, textBox3.Text, textBox4.Text, logiciels, dateTimePicker1.Value, textBox5.Text, textBox6.Text);
+            Db.AddMateriel(materiel);
+            refreshMateriels();
+        }
     }
 }

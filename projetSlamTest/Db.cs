@@ -17,7 +17,7 @@ namespace projetSlamTest
             List<Ticket> ticketList = new List<Ticket>();
             connection.Open();
             MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM tickets WHERE personnelMatricule = @personnelMatricule";
+            cmd.CommandText = "SELECT * FROM tickets WHERE personnelMatricule = @personnelMatricule AND etatDemande = 'En cours'";
             cmd.Parameters.AddWithValue("@personnelMatricule", personnel.Matricule);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -32,12 +32,41 @@ namespace projetSlamTest
             return ticketList;
         }
 
+        public static Ticket GetTicketById(int id)
+        {
+            Ticket ticket = null;
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM tickets WHERE id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                ticket = new Ticket((int)reader["id"], (string)reader["objet"],
+                    (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"],
+                    (string)reader["etatDemande"], (int)reader["technicienId"],
+                    (int)reader["materielId"], (string)reader["personnelMatricule"]);
+            }
+            connection.Close();
+            return ticket;
+        }
+
+        public static void CloseTicket(int id)
+        {
+            connection.Open();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "UPDATE tickets SET etatDemande = 'Résolu' WHERE id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+
         public static List<Ticket> GetAllTickets()
         {
             var ticketList = new List<Ticket>();
             connection.Open();
             var cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM tickets";
+            cmd.CommandText = "SELECT * FROM tickets WHERE etatDemande = 'En cours'";
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -163,7 +192,7 @@ namespace projetSlamTest
         {
             connection.Open();
             var cmd = connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO materiels (processeur, memoire, disque, logiciels, dateAchat, garantie, " +
+            cmd.CommandText = "INSERT INTO materiels (processeur, memoire, disque, logicielsInstalles, dateAchat, garantie, " +
                               "fournisseur) VALUES (@processeur, @memoire, @disque, @logiciels, @dateAchat, @garantie, " +
                               "@fournisseur)";
             cmd.Parameters.AddWithValue("@processeur", materiel.Processeur);

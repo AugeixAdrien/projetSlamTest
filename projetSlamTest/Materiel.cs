@@ -21,6 +21,18 @@ namespace projetSlamTest
             Fournisseur = fournisseur;
         }
 
+        // Ajout de matériel sans ID
+        public Materiel( string processeur, string memoire, string disque, List<string> logiciels, DateTime dateAchat, string garantie, string fournisseur)
+        {
+            Processeur = processeur;
+            Memoire = memoire;
+            Disque = disque;
+            Logiciels = logiciels;
+            DateAchat = dateAchat;
+            Garantie = garantie;
+            Fournisseur = fournisseur;
+        }
+
         public int Id { get; set; }
 
         public string Fournisseur { get; set; }
