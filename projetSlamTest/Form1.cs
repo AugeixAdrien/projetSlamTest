@@ -94,6 +94,42 @@ namespace projetSlamTest
             }
         }
 
+        private void RefreshStats()
+        {
+            // Stats incidents
+            float totalIncidents = Db.NbIncidents();
+            float solvedIncidents = Db.ResolvedIncidents();
+            float percentageSolvedIncidents = solvedIncidents / totalIncidents * 100;
+            label23.Text = totalIncidents.ToString();
+            label24.Text = solvedIncidents.ToString();
+            label26.Text = (percentageSolvedIncidents).ToString() + " %";
+
+            // Stats techniciens
+            var selectedTechnicien = Db.GetTechnicienByMatricule(comboBox5.Text);
+            if(selectedTechnicien != null)
+            {
+                float incidentsInCharge = Db.GetAllTicketInChargeByTechnicien(selectedTechnicien).Count;
+                float solvedIncidentsInCharge = Db.GetAllSolvedTicketsByTechnicien(selectedTechnicien);
+                float percentageSolvedIncidentsByTechnicien = (solvedIncidentsInCharge / totalIncidents) * 100;
+                label29.Text = incidentsInCharge.ToString();
+                label30.Text = solvedIncidentsInCharge.ToString();
+                label36.Text = percentageSolvedIncidentsByTechnicien.ToString() + " %";
+
+            }
+            else
+            {
+                comboBox5.Items.Clear();
+                var techniciens = Db.getAllTechniciens();
+                foreach (Technicien technicien in techniciens)
+                {
+                    comboBox5.Items.Add(technicien.Matricule);
+                }
+            }
+
+            // Stats utilisateurs
+
+        }
+
         /// <summary>
         /// initialise le formulaire principal
         /// </summary>
@@ -180,6 +216,8 @@ namespace projetSlamTest
                     RefreshUtilisateurs();
 
                     RefreshComboBoxMateriels();
+
+                    RefreshStats();
                 }
             }
             else
@@ -404,6 +442,11 @@ namespace projetSlamTest
 
             RefreshUtilisateurs();
             RefreshComboBoxMateriels();
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshStats();
         }
     }
 }

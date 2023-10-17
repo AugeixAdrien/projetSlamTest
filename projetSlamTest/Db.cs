@@ -75,6 +75,22 @@ namespace projetSlamTest
             return technicien;
         }
 
+        public static Technicien GetTechnicienByMatricule(string matricule)
+        {
+            Technicien technicien = null;
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM techniciens WHERE matricule = @matricule";
+            cmd.Parameters.AddWithValue("@matricule", matricule);
+            var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                technicien = new Technicien((int)reader["id"], (string)reader["niveau"], (string)reader["formation"], (string)reader["competences"], (string)reader["matricule"]);
+            }
+            Connection.Close();
+            return technicien;
+        }
+
         public static List<string> GetAllNonTechnicienMatricules()
         {
             var matriculeList = new List<string>();
@@ -149,6 +165,39 @@ namespace projetSlamTest
             }
             Connection.Close();
             return ticketList;
+        }
+
+        public static List<Ticket> GetAllTicketInChargeByTechnicien(Technicien technicien)
+        {
+            var ticketList = new List<Ticket>();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM tickets WHERE etatDemande = 'En cours' AND technicienId = @technicienId";
+            cmd.Parameters.AddWithValue("@technicienId", technicien.Id);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var ticket = new Ticket((int)reader["id"], (string)reader["objet"],
+                    (int)reader["niveauUrgence"], (DateTime)reader["dateCreation"],
+                    (string)reader["etatDemande"], (int)reader["technicienId"],
+                    (int)reader["materielId"], (string)reader["personnelMatricule"]);
+                ticketList.Add(ticket);
+            }
+            Connection.Close();
+            return ticketList;
+        }
+
+        public static int GetAllSolvedTicketsByTechnicien(Technicien technicien)
+        {
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM tickets WHERE etatDemande = 'Résolu' AND technicienId = @technicienId";
+            cmd.Parameters.AddWithValue("@technicienId", technicien.Id);
+            var reader = cmd.ExecuteReader();
+            reader.Read();
+            int resultat = reader.GetInt16(0);
+            Connection.Close();
+            return resultat;
         }
 
         /// <summary>
@@ -242,8 +291,11 @@ namespace projetSlamTest
             Connection.Open();
             var cmd = Connection.CreateCommand();
             cmd.CommandText = "SELECT COUNT(*) FROM tickets";
+            var reader = cmd.ExecuteReader();
+            reader.Read();
+            int resultat = reader.GetInt16(0);
             Connection.Close();
-            return (int)cmd.ExecuteScalar();
+            return resultat;
         }
 
         /// <summary>
@@ -254,9 +306,12 @@ namespace projetSlamTest
         {
             Connection.Open();
             var cmd = Connection.CreateCommand();
-            cmd.CommandText = "SELECT COUNT(*) FROM tickets WHERE etatDemande = 'résolu'";
+            cmd.CommandText = "SELECT COUNT(*) FROM tickets WHERE etatDemande = 'Résolu'";
+            var reader = cmd.ExecuteReader();
+            reader.Read();
+            int resultat = reader.GetInt16(0);
             Connection.Close();
-            return (int)cmd.ExecuteScalar();
+            return resultat;
         }
 
         /// <summary>
