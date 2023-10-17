@@ -54,6 +54,7 @@ namespace projetSlamTest
             this.loginTB.Name = "loginTB";
             this.loginTB.Size = new System.Drawing.Size(170, 20);
             this.loginTB.TabIndex = 1;
+            this.loginTB.Text = "FLST012";
             // 
             // pwTB
             // 
@@ -62,6 +63,7 @@ namespace projetSlamTest
             this.pwTB.PasswordChar = '*';
             this.pwTB.Size = new System.Drawing.Size(170, 20);
             this.pwTB.TabIndex = 3;
+            this.pwTB.Text = "MotDePasseDeFou";
             // 
             // label2
             // 

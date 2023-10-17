@@ -43,6 +43,53 @@ namespace projetSlamTest
             return ticketList;
         }
 
+        internal static List<Technicien> getAllTechniciens()
+        {
+            var technicienList = new List<Technicien>();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM techniciens";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var technicien = new Technicien((int)reader["id"], (string)reader["niveau"], (string)reader["formation"], (string)reader["competences"], (string)reader["matricule"]);
+                technicienList.Add(technicien);
+            }
+            Connection.Close();
+            return technicienList;
+        }
+
+        public static Technicien GetTechnicienById(int id)
+        {
+            Technicien technicien = null;
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM techniciens WHERE id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                technicien = new Technicien((int)reader["id"], (string)reader["niveau"], (string)reader["formation"], (string)reader["competences"], (string)reader["matricule"]);
+            }
+            Connection.Close();
+            return technicien;
+        }
+
+        public static List<string> GetAllNonTechnicienMatricules()
+        {
+            var matriculeList = new List<string>();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT personnels.matricule FROM personnels LEFT JOIN techniciens ON personnels.matricule = techniciens.matricule WHERE techniciens.matricule IS NULL";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                matriculeList.Add((string)reader["matricule"]);
+            }
+            Connection.Close();
+            return matriculeList;
+        }
+
         /// <summary>
         /// réupère un ticket en fonction de son id
         /// </summary>
@@ -306,6 +353,21 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             Connection.Close();
         }
+
+        public static List<int> GetAllNonUsedMaterielId()
+        {
+            var idsList = new List<int>();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT materiels.id FROM materiels LEFT JOIN personnels ON personnels.materielId = materiels.id WHERE personnels.materielId IS NULL";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                idsList.Add((int)reader["id"]);
+            }
+            Connection.Close();
+            return idsList;
+        }
         
         /// <summary>
         /// permet de déclarer un incident dans la BDD
@@ -394,6 +456,15 @@ namespace projetSlamTest
             cmd.ExecuteNonQuery();
             Connection.Close();
         }
+        public static void RemoveUser(Personnel personnel)
+        {
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "DELETE FROM personnels WHERE matricule = @matricule";
+            cmd.Parameters.AddWithValue("@matricule", personnel.Matricule);
+            cmd.ExecuteNonQuery();
+            Connection.Close();
+        }
         
         /// <summary>
         /// retourne le nombre d'incidents déclarés par un utilisateur
@@ -431,7 +502,25 @@ namespace projetSlamTest
             Connection.Close();
             return personnel;
         }
-        
+
+        public static List<Personnel> GetAllUsers()
+        {
+            var personnels = new List<Personnel>();
+            Connection.Open();
+            var cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM personnels";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var personnel = new Personnel(reader.GetString(0), reader.GetDateTime(1), reader.GetString(2),
+                reader.GetInt32(3), reader.GetInt32(4));
+                personnels.Add(personnel);
+            }
+            
+            Connection.Close();
+            return personnels;
+        }
+
         /// <summary>
         /// permet d'avoir tout les materiels existants pour les techniciens et les responsables
         /// </summary>

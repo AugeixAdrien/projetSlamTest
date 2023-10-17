@@ -16,7 +16,9 @@ namespace projetSlamTest
 
         private Ticket _selectedTicket;
         private Materiel _selectedMateriel;
-        
+        private Technicien _selectedTechnicien;
+        private Personnel _selectedUser;
+
         /// <summary>
         /// rafrachit les tickets de l'utilisateur et les affiche dans le datagridview correspondant
         /// </summary>
@@ -54,6 +56,45 @@ namespace projetSlamTest
         }
 
         /// <summary>
+        /// affiche tous les techniciens dans la gridview visible par les responsables
+        /// </summary>
+        private void RefreshTechniciens()
+        {
+            var bindingSourceTechniciens = new BindingSource();
+            var techniciens = Db.getAllTechniciens();
+            bindingSourceTechniciens.DataSource = techniciens;
+            dataGridTechniciens.DataSource = bindingSourceTechniciens;
+        }
+
+        private void RefreshComboBoxMatricule()
+        {
+            comboBox2.Items.Clear();
+            var matricules = Db.GetAllNonTechnicienMatricules();
+            foreach (string matricule in matricules)
+            {
+                comboBox2.Items.Add(matricule);
+            }
+        }
+
+        private void RefreshUtilisateurs()
+        {
+            var bindingSourceUtilisateurs = new BindingSource();
+            var utilisateurs = Db.GetAllUsers();
+            bindingSourceUtilisateurs.DataSource = utilisateurs;
+            dataGridUtilisateurs.DataSource = bindingSourceUtilisateurs;
+        }
+
+        private void RefreshComboBoxMateriels()
+        {
+            comboBox3.Items.Clear();
+            var materielIds = Db.GetAllNonUsedMaterielId();
+            foreach (int id in materielIds)
+            {
+                comboBox3.Items.Add(id);
+            }
+        }
+
+        /// <summary>
         /// initialise le formulaire principal
         /// </summary>
         public Form1()
@@ -83,30 +124,62 @@ namespace projetSlamTest
                 dataGridMateriel.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dataGridTechniciens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dataGridUtilisateurs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                if (Utilisateur.Type >= 0)
+                if (Utilisateur.Type == 0)
                 {
                     numericUpDown1.Value = Utilisateur.MaterielId;
-                }
 
-                if(Utilisateur.Type >= 0)
-                {
-                    // Affiche les tickets ouverts par l'utilisateur connecté 
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    button5.Visible = false;
+
+                    // supprimer les pages auquels l'utilisateur connecté n'a pas la permission d'accéder
+                    tabControl1.TabPages.Remove(tabPage1);
+                    tabControl1.TabPages.Remove(tabPage4);
+                    tabControl1.TabPages.Remove(tabPage5);
+                    tabControl1.TabPages.Remove(tabPage6);
+
                     RefreshUserTickets();
                 }
-                if(Utilisateur.Type >= 1)
+
+                if(Utilisateur.Type == 1)
                 {
+                    RefreshUserTickets();
+
                     // Affiche tous les tickets
                     RefreshAllTickets();
+                    button6.Enabled = true;
                     
                     // affiche tout le matériel dans le datagridview dataGridMateriel
                     RefreshMateriels();
-                    
+
+                    // supprimer les pages auquels l'utilisateur connecté n'a pas la permission d'accéder
+                    tabControl1.TabPages.Remove(tabPage4);
+                    tabControl1.TabPages.Remove(tabPage5);
+                    tabControl1.TabPages.Remove(tabPage6);
 
                 }
-                if(Utilisateur.Type >= 2)
-                {
 
+                if(Utilisateur.Type == 2)
+                {
+                    RefreshUserTickets();
+
+                    // Affiche tous les tickets
+                    RefreshAllTickets();
+                    button6.Enabled = true;
+
+                    // affiche tout le matériel dans le datagridview dataGridMateriel
+                    RefreshMateriels();
+
+                    RefreshTechniciens();
+
+                    RefreshComboBoxMatricule();
+
+                    RefreshUtilisateurs();
+
+                    RefreshComboBoxMateriels();
                 }
             }
             else
@@ -141,7 +214,6 @@ namespace projetSlamTest
             if (dataGridView3.SelectedRows.Count <= 0) return; // si y'a rien on skip
             
             var selectedRow = dataGridView3.SelectedRows[0]; // Prend la première ligne sélectionnée
-            // Vous pouvez accéder aux cellules de la ligne sélectionnée comme ceci :
             var cellValue = (int)selectedRow.Cells["id"].Value;
             _selectedTicket = Db.GetTicketById(cellValue);
             if (_selectedTicket == null) return;
@@ -188,6 +260,7 @@ namespace projetSlamTest
             var materiel = new Materiel(textBox2.Text, textBox3.Text, textBox4.Text, logiciels, dateTimePicker1.Value, textBox5.Text, textBox6.Text);
             Db.AddMateriel(materiel);
             RefreshMateriels();
+            RefreshComboBoxMateriels();
             // clear les champs
             textBox2.Text = "";
             textBox3.Text = "";
@@ -220,6 +293,117 @@ namespace projetSlamTest
                     button3.Enabled = true;
                 }
             }
+        }
+
+        private void dataGridView2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count <= 0) return; // si y'a rien on skip
+
+            var selectedRow = dataGridView2.SelectedRows[0]; // Prend la première ligne sélectionnée
+            var cellValue = (int)selectedRow.Cells["id"].Value;
+            _selectedTicket = Db.GetTicketById(cellValue);
+            if (_selectedTicket == null) return;
+            button2.Enabled = true;
+        }
+
+        private void dataGridTechniciens_Click(object sender, EventArgs e)
+        {
+            if (dataGridTechniciens.SelectedRows.Count <= 0) return; // si y'a rien on skip
+
+            var selectedRow = dataGridTechniciens.SelectedRows[0]; // Prend la première ligne sélectionnée
+            var cellValue = (int)selectedRow.Cells["id"].Value;
+            _selectedTechnicien = Db.GetTechnicienById(cellValue);
+            if (_selectedTechnicien == null) return;
+            button7.Enabled = true;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Db.DeleteTechnicien(_selectedTechnicien);
+            RefreshTechniciens();
+            RefreshComboBoxMatricule();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            var technicien = new Technicien(textBox9.Text, textBox8.Text, textBox7.Text, comboBox2.Text);
+            Db.AddTechnicien(technicien);
+            RefreshTechniciens();
+            RefreshComboBoxMatricule();
+        }
+
+        private void dataGridTechniciens_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+            DataGridViewCell cell = dataGridTechniciens.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (cell.Value.ToString() != cell.EditedFormattedValue.ToString())
+            {
+                var technicien = _selectedTechnicien;
+
+                technicien.Niveau = dataGridTechniciens.CurrentRow.Cells["niveau"].Value.ToString();
+                technicien.Competences = dataGridTechniciens.CurrentRow.Cells["competences"].Value.ToString();
+                technicien.Formation = dataGridTechniciens.CurrentRow.Cells["formation"].Value.ToString();
+
+                Db.EditTechnicien(technicien);
+
+                RefreshTechniciens();
+
+                RefreshComboBoxMatricule();
+            }
+        }
+
+        private void dataGridUtilisateurs_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell cell = dataGridUtilisateurs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if(cell.Value.ToString() != cell.EditedFormattedValue.ToString())
+            {
+                var utilisateur = _selectedUser;
+
+                utilisateur.MaterielId = (int)dataGridUtilisateurs.CurrentRow.Cells["materielId"].Value;
+                utilisateur.DateEmbauche = (DateTime)dataGridUtilisateurs.CurrentRow.Cells["dateEmbauche"].Value;
+                utilisateur.MotDePasse = dataGridUtilisateurs.CurrentRow.Cells["motDePasse"].Value.ToString();
+                utilisateur.Type = (int)dataGridUtilisateurs.CurrentRow.Cells["type"].Value;
+
+                Db.EditUser(utilisateur);
+
+                RefreshUtilisateurs();
+            }
+        }
+
+        private void dataGridUtilisateurs_Click(object sender, EventArgs e)
+        {
+            if (dataGridUtilisateurs.SelectedRows.Count <= 0) return; // si y'a rien on skip
+
+
+            var selectedRow = dataGridUtilisateurs.SelectedRows[0]; // Prend la première ligne sélectionnée
+            var cellValue = (string)selectedRow.Cells["matricule"].Value;
+            _selectedUser = Db.GetUser(cellValue);
+            if (_selectedUser == null) return;
+            button10.Enabled = true;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if(_selectedUser.Matricule == Utilisateur.Matricule) 
+            { 
+                MessageBox.Show("Vous ne pouvez pas supprimer votre propre compte !"); 
+                return; 
+            } 
+            else
+            {
+                Db.RemoveUser(_selectedUser);
+                RefreshUtilisateurs();
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            var personnel = new Personnel(textBox10.Text, dateTimePicker2.Value, textBox11.Text, Convert.ToInt16(comboBox4.Text), Convert.ToInt16(comboBox3.Text));
+
+            Db.AddUser(personnel);
+
+            RefreshUtilisateurs();
+            RefreshComboBoxMateriels();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace projetSlamTest
     /// <summary>
     /// Cette classe représente un technicien dans votre système.
     /// </summary>
-    public class Technicien : Personnel
+    public class Technicien
     {
         /// <summary>
         /// Initialise une nouvelle instance de la classe Technicien.
@@ -20,12 +20,29 @@ namespace projetSlamTest
         /// <param name="formation">La formation du technicien.</param>
         /// <param name="competences">Les compétences du technicien.</param>
         public Technicien(string matricule, DateTime dateEmbauche, string motDePasse, int type, int materielId, int id,
-            string niveau, string formation, string competences) : base(matricule, dateEmbauche, motDePasse, type, materielId)
+            string niveau, string formation, string competences)
         {
             Id = id;
             Niveau = niveau;
             Formation = formation;
             Competences = competences;
+        }
+
+        public Technicien(int id, string niveau, string formation, string competences, string matricule)
+        {
+            Id = id;
+            Niveau = niveau;
+            Formation = formation;
+            Competences = competences;
+            Matricule = matricule;
+        }
+
+        public Technicien(string niveau, string formation, string competences, string matricule)
+        {
+            Niveau = niveau;
+            Formation = formation;
+            Competences = competences;
+            Matricule = matricule;
         }
 
         /// <summary>
@@ -47,5 +64,10 @@ namespace projetSlamTest
         /// Obtient ou définit les compétences du technicien.
         /// </summary>
         public string Competences { get; set; }
+
+        /// <summary>
+        /// Obtient ou définit le matricule du technicien.
+        /// </summary>
+        public string Matricule { get; set; }
     }
 }
